@@ -42,11 +42,12 @@ Return a new random grid
 def genarate_random_grid():
     return np.round(np.random.random([WIDTH,HEIGHT])).astype('int')
 
-
+# Get size of terminal
 rows, columns = os.popen('stty size', 'r').read().split()
 WIDTH, HEIGHT = int(rows), int(columns)
 
 grid = genarate_random_grid()
+
 # Try and finally for nice exit when CTRL + C
 try:
     os.system('clear')
@@ -54,19 +55,28 @@ try:
     while True:
         rows, columns = os.popen('stty size', 'r').read().split()
         WIDTH_new, HEIGHT_new = int(rows), int(columns)
+
+        # Update size and genarate new grid when terminal resizes
         if WIDTH_new != WIDTH or HEIGHT_new != HEIGHT:
             os.system('clear')
             WIDTH, HEIGHT = WIDTH_new, HEIGHT_new
             grid = genarate_random_grid()
-            time.sleep(1)
+            time.sleep(0.5)
+
+        # Clear screen
         os.system('clear')
+
+        # Get grid ready to print
         grid_print = grid.copy().astype('str')
         grid_print[grid_print == '1'] = '#'
         grid_print[grid_print == '0'] = ' '
         print('\n'.join([''.join(x.tolist()) for x in grid_print]))
+
         grid = get_next_grid(grid)
+
         time.sleep(1.0/30)
 finally:
+    # Clean exit
     os.system('clear')
     import sys
     sys.exit(0)
