@@ -12,3 +12,9 @@ CTRL + C to exit out.
 ### Demo
 --------
 ![Conway's Game of Life](gameoflife.gif)
+
+### Requirements
+- Numpy
+```
+  pip install numpy
+```
