@@ -53,10 +53,9 @@ try:
     os.system('clear')
     time.sleep(0.5)
     while True:
+        # Update size and genarate new grid when terminal resizes
         rows, columns = os.popen('stty size', 'r').read().split()
         WIDTH_new, HEIGHT_new = int(rows), int(columns)
-
-        # Update size and genarate new grid when terminal resizes
         if WIDTH_new != WIDTH or HEIGHT_new != HEIGHT:
             os.system('clear')
             WIDTH, HEIGHT = WIDTH_new, HEIGHT_new
