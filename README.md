@@ -5,7 +5,7 @@ A simple terminal implementation of Conway's Game of Life using numpy with rando
 ----------
 To run just simply:
 ```
-python3 gameoflife.py
+python gameoflife.py
 ```
 CTRL + C to exit out.
 
