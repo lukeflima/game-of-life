@@ -1,6 +1,8 @@
 import numpy as np
 import time
 import os
+import terminalsize
+import platform
 
 '''
 Returns a list with the number of neighbors of each cell
@@ -42,33 +44,39 @@ Return a new random grid
 def genarate_random_grid():
     return np.round(np.random.random([WIDTH,HEIGHT])).astype('int')
 
+def clear_screan():
+    current_os = platform.system()
+    if current_os == 'Windows':
+        os.system('cls')
+    if current_os in ['Linux', 'Darwin'] or current_os.startswith('CYGWIN'):
+        os.system('clear')
+
 # Get size of terminal
-rows, columns = os.popen('stty size', 'r').read().split()
-WIDTH, HEIGHT = int(rows), int(columns)
+HEIGHT, WIDTH = terminalsize.get_terminal_size()
 
 grid = genarate_random_grid()
 
 # Try and finally for nice exit when CTRL + C
 try:
-    os.system('clear')
+    clear_screan()
     time.sleep(0.5)
     while True:
         # Update size and genarate new grid when terminal resizes
-        rows, columns = os.popen('stty size', 'r').read().split()
-        WIDTH_new, HEIGHT_new = int(rows), int(columns)
+        HEIGHT_new, WIDTH_new = terminalsize.get_terminal_size()
         if WIDTH_new != WIDTH or HEIGHT_new != HEIGHT:
-            os.system('clear')
+            clear_screan()
             WIDTH, HEIGHT = WIDTH_new, HEIGHT_new
             grid = genarate_random_grid()
             time.sleep(0.5)
-
-        # Clear screen
-        os.system('clear')
 
         # Get grid ready to print
         grid_print = grid.copy().astype('str')
         grid_print[grid_print == '1'] = '#'
         grid_print[grid_print == '0'] = ' '
+
+        # Clear screen
+        clear_screan()
+        
         print('\n'.join([''.join(x.tolist()) for x in grid_print]))
 
         grid = get_next_grid(grid)
@@ -76,6 +84,6 @@ try:
         time.sleep(1.0/30)
 finally:
     # Clean exit
-    os.system('clear')
+    clear_screan()
     import sys
     sys.exit(0)
