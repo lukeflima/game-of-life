@@ -19,5 +19,4 @@ CTRL + C to exit out.
 ```
   pip install numpy
 ```
-### References
-Source for [terminalsize.py](https://gist.github.com/jtriley/1108174)
+
