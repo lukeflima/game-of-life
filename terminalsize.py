@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# Source https://gist.github.com/jtriley/1108174
 import os
 import shlex
 import struct
